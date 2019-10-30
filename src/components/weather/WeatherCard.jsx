@@ -1,13 +1,24 @@
 import React from 'react'
-
-const WeatherCard = ({alert: {properties: {event, headline, instruction, description, severity, certainty, urgency}}}) => {
+import {Accordion, Icon} from 'semantic-ui-react';
+import './weather.css'
+const WeatherCard = ({alert: {properties: {event, headline, instruction, description, severity, urgency}}, active, index, handleClick}) => {
     return (
         <div>
-            <h1>{event}</h1>
-            <h3>{headline}</h3>
+            <Accordion.Title
+            active={active}
+            index={index}
+            onClick={handleClick}
+            style={severity === 'Moderate' ? {color: 'yellow'} : severity === 'Severe' ? {color: 'red'} : null}
+          >
+            <Icon name='dropdown' />
+            {event}
+          </Accordion.Title>
+          <Accordion.Content active={active}>
+          <h3>{headline}</h3>
             <h4>{`This is very ${urgency}`}</h4>
             <p>{description}</p>
             <p>{instruction}</p>
+          </Accordion.Content>
         </div>
     )
 }
